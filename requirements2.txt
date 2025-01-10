@@ -4,10 +4,10 @@ torchvision==0.16.2
 transformers
 accelerate
 autoawq
-outlines==0.1.11
-orjson
-vllm
-sglang
+vllm>=0.3.0
+outlines>=0.0.34
+sglang>=0.2.1
 sentencepiece
 zmq
 rpyc
+nvidia-ml-py
