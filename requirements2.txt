@@ -1,13 +1,19 @@
+wheel    # Required for building packages
+ninja     # Required for building flash-attn
 numpy==1.24.3
 torch==2.1.2
 torchvision==0.16.2
 transformers
 accelerate
 autoawq
-vllm>=0.3.0
-outlines>=0.0.34
-sglang>=0.2.1
+orjson
 sentencepiece
 zmq
 rpyc
-nvidia-ml-py
+nvidia-ml-py    # Replaced pynvml with this
+vllm==0.6.6.post1
+outlines>=0.0.44,<0.1.0    # Specifically use 0.0.x series
+outlines_core==0.1.26
+flash-attn      # Required for flashinfer
+flashinfer      # Required for SGLang sampling
+sglang==0.2.1

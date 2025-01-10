@@ -4,7 +4,7 @@ import os
 
 # Initialize the model with the same config as vLLM script
 gen = sgl.Runtime(
-    model="Qwen/Qwen2.5-32B-Instruct-AWQ",
+    model="Qwen/Qwen2-72B-Instruct-AWQ",
     quantization="awq",
     tensor_parallel_size=4,
     trust_remote_code=True,
