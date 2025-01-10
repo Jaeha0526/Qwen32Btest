@@ -1,6 +1,15 @@
 from vllm import LLM, SamplingParams
 import time
-import torch
+import os
+
+
+# Get HF token from environment variable
+hf_token = os.getenv('HF_TOKEN')
+if not hf_token:
+    raise ValueError("Please set HF_TOKEN environment variable")
+
+os.environ["HUGGING_FACE_HUB_TOKEN"] = hf_token  # Set for HuggingFace library
+
 
 # Configure model settings
 model_name = "Qwen/Qwen-32B"
@@ -12,13 +21,14 @@ sampling_params = SamplingParams(
     frequency_penalty=0
 )
 
-# Initialize LLM with quantization and tensor parallelism
+# Initialize LLM with 4-bit quantization
 llm = LLM(
     model=model_name,
     tensor_parallel_size=4,  # Use all 4 GPUs
-    quantization="awq",      # Use AWQ quantization
+    quantization="awq",      # 4-bit AWQ quantization
     trust_remote_code=True,
-    max_model_len=8192
+    max_model_len=8192,
+    dtype="float16"         # Mix with fp16 for efficiency
 )
 
 # Test prompt
