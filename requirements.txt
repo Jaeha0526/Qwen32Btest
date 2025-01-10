@@ -4,3 +4,6 @@ transformers
 vllm
 torch --index-url https://download.pytorch.org/whl/cu118
 sentencepiece
+sglang
+orjson
+outlines==0.0.34
