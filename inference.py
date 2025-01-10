@@ -10,9 +10,12 @@ if not hf_token:
 
 os.environ["HUGGING_FACE_HUB_TOKEN"] = hf_token  # Set for HuggingFace library
 
+# Set hugginface base in workspace
+os.environ['HF_HOME'] = '/workspace/huggingface'
+os.environ['HUGGING_FACE_HUB_CACHE'] = '/workspace/huggingface/hub'
+os.environ["TRANSFORMERS_CACHE"] = "/workspace/huggingface/hub"
 
 # Configure model settings
-model_name = "Qwen/Qwen-32B"
 sampling_params = SamplingParams(
     temperature=1.0,
     top_p=1.0,
@@ -21,14 +24,14 @@ sampling_params = SamplingParams(
     frequency_penalty=0
 )
 
-# Initialize LLM with 4-bit quantization
+# Initialize LLM with AWQ quantization
 llm = LLM(
-    model=model_name,
-    tensor_parallel_size=4,  # Use all 4 GPUs
-    quantization="awq",      # 4-bit AWQ quantization
+    model="Qwen/Qwen2.5-32B-Instruct-AWQ",
+    tensor_parallel_size=4,
+    quantization="awq",
     trust_remote_code=True,
     max_model_len=8192,
-    dtype="float16"         # Mix with fp16 for efficiency
+    dtype="float16"
 )
 
 # Test prompt
@@ -49,3 +52,4 @@ tokens_per_second = output_tokens / total_time
 print(f"Tokens per second: {tokens_per_second}")
 print(f"Total generation time: {total_time} seconds")
 print(f"Output tokens: {output_tokens}")
+print(f"Output: {output_text}")
